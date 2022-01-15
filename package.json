@@ -22,6 +22,7 @@
     "dev": "vite",
     "build": "vue-tsc --noEmit && vite build",
     "preview": "vite preview",
+    "commit":"npx cz",
     "lint": "eslint \"src/**/*\" --fix",
     "prettier": "prettier --write .",
     "prepare": "husky install"
