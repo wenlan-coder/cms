@@ -6,16 +6,8 @@
  * @LastEditors: wenlan
  * @LastEditTime: 2022-01-15 14:44:44
  */
-import { createApp } from "vue";
+import { createApp } from 'vue'
 
-import App from './App.vue';
-
-
-
-
-
-
-
-
+import App from './App.vue'
 
 createApp(App).mount('#app')
