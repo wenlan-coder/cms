@@ -1,70 +1,45 @@
-/*
- * @Descripttion:
- * @version:
- * @Author: wenlan
- * @Date: 2022-01-14 15:22:01
- * @LastEditors: wenlan
- * @LastEditTime: 2022-01-14 19:58:10
- */
 module.exports = {
-  parser: "vue-eslint-parser",
+  root: true,
+  env: {
+    browser: true,
+    node: true,
+    es2021: true
+  },
+  parser: 'vue-eslint-parser',
+  extends: [
+    'eslint:recommended', //eslint 推荐
+    'plugin:vue/vue3-recommended', //vue 推荐
+    'plugin:@typescript-eslint/recommended', //eslint对ts语法推荐规范
+    'plugin:prettier/recommended', //prettier推荐 解决eslint prettier冲突
+    'prettier' //必须写最后
+  ],
   parserOptions: {
-    parser: "@typescript-eslint/parser",
-    ecmaVersion: 2020,
-    sourceType: "module",
+    ecmaVersion: 12,
+    parser: '@typescript-eslint/parser',
+    sourceType: 'module',
     ecmaFeatures: {
       jsx: true
     }
   },
-  extends: [
-    "plugin:vue/vue3-recommended",
-    "plugin:@typescript-eslint/recommended",
-    "prettier/@typescript-eslint",
-    "plugin:prettier/recommended"
-  ],
+  plugins: ['vue', '@typescript-eslint', 'prettier'],
   rules: {
-    "@typescript-eslint/ban-ts-ignore": "off",
-    "@typescript-eslint/explicit-function-return-type": "off",
-    "@typescript-eslint/no-explicit-any": "off",
-    "@typescript-eslint/no-var-requires": "off",
-    "@typescript-eslint/no-empty-function": "off",
-    "vue/custom-event-name-casing": "off",
-    "no-use-before-define": "off",
-    // 'no-use-before-define': [
-    //   'error',
-    //   {
-    //     functions: false,
-    //     classes: true,
-    //   },
-    // ],
-    "@typescript-eslint/no-use-before-define": "off",
-    // '@typescript-eslint/no-use-before-define': [
-    //   'error',
-    //   {
-    //     functions: false,
-    //     classes: true,
-    //   },
-    // ],
-    "@typescript-eslint/ban-ts-comment": "off",
-    "@typescript-eslint/ban-types": "off",
-    "@typescript-eslint/no-non-null-assertion": "off",
-    "@typescript-eslint/explicit-module-boundary-types": "off",
-    "@typescript-eslint/no-unused-vars": [
-      "error",
+    'no-var': 'error',
+    allowEmptyCatch: 'off',
+    'prettier/prettier': 'error',
+    '@typescript-eslint/no-unused-vars': 'error',
+    '@typescript-eslint/no-explicit-any': 'off',
+    // 针对模版中未使用的变量
+    'vue/no-unused-vars': [
+      'error',
       {
-        argsIgnorePattern: "^h$",
-        varsIgnorePattern: "^h$"
+        ignorePattern: '^_'
       }
-    ],
-    "no-unused-vars": [
-      "error",
-      {
-        argsIgnorePattern: "^h$",
-        varsIgnorePattern: "^h$"
-      }
-    ],
-    "space-before-function-paren": "off",
-    quotes: ["error", "single"],
-    "comma-dangle": ["error", "never"]
+    ]
+  },
+  globals: {
+    defineProps: 'readonly',
+    defineEmits: 'readonly',
+    defineExpose: 'readonly',
+    withDefaults: 'readonly'
   }
 }
