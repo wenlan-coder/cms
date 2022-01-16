@@ -1,3 +1,11 @@
+/*
+ * @Descripttion:
+ * @version:
+ * @Author: wenlan
+ * @Date: 2022-01-14 15:22:01
+ * @LastEditors: wenlan
+ * @LastEditTime: 2022-01-15 16:58:39
+ */
 module.exports = {
   root: true,
   env: {
@@ -28,6 +36,8 @@ module.exports = {
     'prettier/prettier': 'error',
     '@typescript-eslint/no-unused-vars': 'error',
     '@typescript-eslint/no-explicit-any': 'off',
+    '@typescript-eslint/no-var-requires': 'off',
+    'vue/multi-word-component-names': 'off',
     // 针对模版中未使用的变量
     'vue/no-unused-vars': [
       'error',
