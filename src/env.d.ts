@@ -4,7 +4,7 @@
  * @Author: wenlan
  * @Date: 2022-01-13 15:26:43
  * @LastEditors: wenlan
- * @LastEditTime: 2022-01-16 14:42:44
+ * @LastEditTime: 2022-01-16 22:49:46
  */
 /// <reference types="vite/client" />
 
@@ -23,4 +23,5 @@ interface ImportMetaEnv {
   VITE_LOGIN_TEST: string
   VITE_RES_URL: string
   VITE_APP_TITLE: string
+  VITE_APP_BASE_API: string
 }
