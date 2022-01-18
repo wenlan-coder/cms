@@ -4,7 +4,7 @@
  * @Author: wenlan
  * @Date: 2022-01-16 16:57:17
  * @LastEditors: wenlan
- * @LastEditTime: 2022-01-18 17:04:06
+ * @LastEditTime: 2022-01-18 19:19:11
  */
 import WDRequest from './request'
 import { TIME_OUT } from './request/config'

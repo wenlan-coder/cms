@@ -4,17 +4,39 @@
  * @Author: wenlan
  * @Date: 2022-01-15 16:43:51
  * @LastEditors: wenlan
- * @LastEditTime: 2022-01-15 23:16:23
+ * @LastEditTime: 2022-01-18 21:07:30
 -->
-<script lang="ts"></script>
-
 <template>
-  <h2>main</h2>
-  <el-button>hello world!</el-button>
-  <el-alert title="success alert" type="success" effect="dark"> </el-alert>
-  <el-alert title="info alert" type="info" effect="dark"> </el-alert>
-  <el-alert title="warning alert" type="warning" effect="dark"> </el-alert>
-  <el-alert title="error alert" type="error" effect="dark"> </el-alert>
+  <el-button
+    v-loading.fullscreen.lock="fullscreenLoading"
+    type="primary"
+    @click="openFullScreen1"
+  >
+    As a directive
+  </el-button>
+  <el-button type="primary" @click="openFullScreen2"> As a service </el-button>
 </template>
 
-<style scoped></style>
+<script lang="ts" setup>
+import { ref } from 'vue'
+import { ElLoading } from 'element-plus'
+
+const fullscreenLoading = ref(false)
+const openFullScreen1 = () => {
+  fullscreenLoading.value = true
+  setTimeout(() => {
+    fullscreenLoading.value = false
+  }, 2000)
+}
+
+const openFullScreen2 = () => {
+  const loading = ElLoading.service({
+    lock: true,
+    text: 'Loading',
+    background: 'rgba(0, 0, 0, 0.7)'
+  })
+  setTimeout(() => {
+    loading.close()
+  }, 2000)
+}
+</script>

@@ -4,7 +4,7 @@
  * @Author: wenlan
  * @Date: 2022-01-13 15:26:43
  * @LastEditors: wenlan
- * @LastEditTime: 2022-01-18 16:12:43
+ * @LastEditTime: 2022-01-18 23:03:01
  */
 import { createApp } from 'vue'
 import router from './router'
@@ -14,10 +14,15 @@ import MyRequest from './service'
 const app = createApp(App)
 app.use(router) // 挂载之前
 app.use(store)
+interface dataType {
+  data: any
+  returnCode: string
+  success: boolean
+}
 app.mount('#app')
-MyRequest.request({
+MyRequest.get<dataType>({
   url: '/home/multidata',
-  method: 'GET',
+  showLoading: true,
   interceptors: {
     requestInterceptor: (config) => {
       console.log('单独请求拦截')
@@ -28,6 +33,8 @@ MyRequest.request({
       return res
     }
   }
+}).then((res) => {
+  console.log(res)
 })
 // MyRequest.request({
 //   url: '/home/multidata',
