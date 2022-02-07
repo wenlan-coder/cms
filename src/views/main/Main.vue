@@ -4,15 +4,15 @@
  * @Author: wenlan
  * @Date: 2022-01-23 17:12:21
  * @LastEditors: wenlan
- * @LastEditTime: 2022-02-06 21:04:01
+ * @LastEditTime: 2022-02-07 14:35:33
 -->
 <script setup lang="ts">
-import { markRaw, ref } from 'vue'
+import { ref } from 'vue'
 import NavHeader from '@/components/nav-header'
 import NavMenu from '@/components/nav-menu'
 import { useRoute } from 'vue-router'
-const route = markRaw(useRoute())
 let ISCollapse = ref<boolean>(false)
+const route = useRoute()
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const handleCollapse = (isCollapse: boolean) => {
   console.log(isCollapse)
@@ -31,7 +31,13 @@ const handleCollapse = (isCollapse: boolean) => {
           <nav-header @change-collapse="handleCollapse"></nav-header>
         </el-header>
         <el-main class="page-content">
-          <router-view :key="route.path"> </router-view>
+          <router-view v-slot="{ Component }">
+            <transition name="why" appear>
+              <div :key="(route.name as string)">
+                <component :is="Component"></component>
+              </div>
+            </transition>
+          </router-view>
         </el-main>
       </el-container>
     </el-container>
@@ -39,6 +45,19 @@ const handleCollapse = (isCollapse: boolean) => {
 </template>
 
 <style scoped lang="less">
+.why-active {
+  color: red;
+}
+
+.why-enter-from,
+.why-leave-to {
+  opacity: 0;
+}
+
+.why-enter-active,
+.why-leave-active {
+  transition: opacity 1s ease;
+}
 .main {
   position: fixed;
   top: 0;

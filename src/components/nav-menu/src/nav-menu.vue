@@ -4,7 +4,7 @@
  * @Author: wenlan
  * @Date: 2022-01-27 22:29:28
  * @LastEditors: wenlan
- * @LastEditTime: 2022-02-06 21:02:44
+ * @LastEditTime: 2022-02-06 21:01:12
 -->
 <script setup lang="ts">
 import { PermissionModule } from '@/store/premission/index'
@@ -16,7 +16,8 @@ const route = useRoute()
 const routes = computed(() => {
   return PermissionModule.routes
 })
-computed
+console.log('route', route)
+//computed
 const activeMenu = computed(() => {
   const { meta, name } = route
   // if set path, the sidebar will highlight the path you set

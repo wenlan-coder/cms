@@ -4,7 +4,7 @@
  * @Author: wenlan
  * @Date: 2022-01-15 16:55:13
  * @LastEditors: wenlan
- * @LastEditTime: 2022-02-05 13:11:41
+ * @LastEditTime: 2022-02-07 16:04:51
  */
 import { createRouter, createWebHashHistory } from 'vue-router'
 import type { RouteRecordRaw } from 'vue-router'
@@ -167,5 +167,7 @@ export function resetRouter() {
   const newRouter = router
   ;(router as any).matcher = (newRouter as any).matcher // reset router
 }
+
+console.log('路由', router.getRoutes())
 
 export default router
