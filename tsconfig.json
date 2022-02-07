@@ -1,15 +1,22 @@
 {
   "compilerOptions": {
-    "target": "esnext",
+    "experimentalDecorators": true,
+    "target": "esnext", //目标代码es6/7/8
     "useDefineForClassFields": true,
-    "module": "esnext",
-    "moduleResolution": "node",
-    "strict": true,
-    "jsx": "preserve",
-    "sourceMap": true,
+    "module": "esnext", // 目标代码使用模块化
+    "moduleResolution": "node", //按照node解析模块
+    "strict": true, //严格处理
+    "jsx": "preserve", //对jsx进行处理
+    "sourceMap": true, //
+    "baseUrl": ".",
     "resolveJsonModule": true,
     "esModuleInterop": true,
     "lib": ["esnext", "dom"],
+    "paths": {
+      //ts 文件别名
+      "@/*": ["src/*"],
+      "utils/*": ["src/utils/*"]
+    },
     "types": ["element-plus/global"]
   },
   "include": [

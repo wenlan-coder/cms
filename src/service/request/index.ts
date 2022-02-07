@@ -4,22 +4,22 @@
  * @Author: wenlan
  * @Date: 2022-01-16 16:52:38
  * @LastEditors: wenlan
- * @LastEditTime: 2022-01-18 23:02:05
+ * @LastEditTime: 2022-01-23 13:13:50
  */
 import axios from 'axios'
 import type { AxiosInstance } from 'axios'
 import type { WDAxiosRequestConfig, WDRequestInterceptors } from './type'
 import { ElLoading } from 'element-plus'
-const DEFAULT_LOADING = true
+const DEFAULT_LOADING = false
 class WDRequest {
   instance: AxiosInstance
   showLoading: boolean
   interceptors?: WDRequestInterceptors
   loading?: any
-  constructor(config: WDAxiosRequestConfig) {
+  constructor(config: WDAxiosRequestConfig<any>) {
     //创建axios实例
     this.instance = axios.create(config)
-    this.showLoading = config.showLoading ?? true
+    this.showLoading = config.showLoading ?? false
     this.interceptors = config.interceptors
 
     //实例拦截操作
@@ -37,34 +37,34 @@ class WDRequest {
     //请求拦截
     this.instance.interceptors.request.use(
       (config) => {
-        console.log('默认请求拦截成功')
+        // console.log('默认请求拦截成功')
         if (this.showLoading) {
           this.loading = ElLoading.service({
             lock: true,
-            text: '数据加载中',
-            background: 'rgba(0, 0, 0, 0.7)',
-            fullscreen: true
+            text: 'laoding',
+            fullscreen: false,
+            background: 'rgba(0,0,0,.7)'
           })
         }
         return config
       },
       (err) => {
-        console.log('默认请求拦截失败')
+        // console.log('默认请求拦截失败')
         return err
       }
     )
     //响应拦截
     this.instance.interceptors.response.use(
       (res) => {
-        setTimeout(() => {
-          this.loading.close()
-        }, 3000)
+        // Loading should be closed asynchronously
+        this.loading?.close()
         const data = res.data
-        if (data.returnCode === '-1000') {
-          console.log('请求失败')
-        } else {
-          return data
-        }
+        // if (data.code === '-1000') {
+        //   console.log('请求失败')
+        // } else {
+        //   return data
+        // }
+        return data
       },
       (err) => {
         if (err.response.status === 404) {
@@ -76,18 +76,19 @@ class WDRequest {
     )
   }
 
-  request<T>(config: WDAxiosRequestConfig): Promise<T> {
+  request<T>(config: WDAxiosRequestConfig<T>): Promise<T> {
     return new Promise((resolve, reject) => {
       //单独请求拦截
       if (config.interceptors?.requestInterceptor) {
         config = config.interceptors.requestInterceptor(config)
       }
-      if (config.showLoading === false) {
+      if (config.showLoading === true) {
         this.showLoading = config.showLoading
       }
       this.instance
         .request<any, T>(config)
         .then((res) => {
+          //单独响应拦截
           if (config.interceptors?.reponseInterceptor) {
             res = config.interceptors.reponseInterceptor(res)
           }
@@ -104,19 +105,19 @@ class WDRequest {
   }
 
   //GET
-  get<T>(config: WDAxiosRequestConfig): Promise<T> {
+  get<T>(config: WDAxiosRequestConfig<T>): Promise<T> {
     return this.request<T>({ ...config, method: 'GET' })
   }
   //PUT
-  put<T>(config: WDAxiosRequestConfig): Promise<T> {
+  put<T>(config: WDAxiosRequestConfig<T>): Promise<T> {
     return this.request<T>({ ...config, method: 'PUT' })
   }
   //POST
-  post<T>(config: WDAxiosRequestConfig): Promise<T> {
+  post<T>(config: WDAxiosRequestConfig<T>): Promise<T> {
     return this.request<T>({ ...config, method: 'POST' })
   }
   //DEL
-  delete<T>(config: WDAxiosRequestConfig): Promise<T> {
+  delete<T>(config: WDAxiosRequestConfig<T>): Promise<T> {
     return this.request<T>({ ...config, method: 'DELETE' })
   }
 }
