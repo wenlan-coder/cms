@@ -4,7 +4,7 @@
  * @Author: wenlan
  * @Date: 2022-01-20 14:37:07
  * @LastEditors: wenlan
- * @LastEditTime: 2022-01-21 16:59:09
+ * @LastEditTime: 2022-02-19 17:38:24
 -->
 avatar
 <script setup lang="ts">
@@ -18,13 +18,13 @@ const isKeepPassword = ref<boolean>(true)
 const accountRef = ref<InstanceType<typeof LoginAccount>>()
 const phoneRef = ref<InstanceType<typeof LoginPhone>>()
 const currentTab = ref<string>('account')
-
 //methods
 const loginSubmit = () => {
   //判断是密码登录/验证码
   if (currentTab.value === 'account') {
     accountRef.value?.accountValidate(isKeepPassword.value)
   } else {
+    phoneRef.value?.messageValidata()
     console.log('验证码登录·')
   }
 }
@@ -52,7 +52,10 @@ const loading = computed(() => {
                 <span>密码登录</span>
               </span>
             </template>
-            <login-account ref="accountRef"></login-account>
+            <login-account
+              ref="accountRef"
+              :loginsubmit="loginSubmit"
+            ></login-account>
           </el-tab-pane>
           <el-tab-pane name="phone">
             <template #label>

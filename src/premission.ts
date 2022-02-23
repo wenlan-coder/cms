@@ -13,7 +13,7 @@ import { ElMessage } from 'element-plus'
 import { RouteLocationNormalized } from 'vue-router'
 import getPageTitle from '@/utils/get-page-title'
 import Cache from './utils/cache'
-import { PermissionModule } from '@/store/premission/index'
+import { PermissionModule } from '@/store/main/premission/index'
 import { LoginModule } from '@/store/login/index'
 NProgress.configure({ showSpinner: false })
 const whiteList = ['/login']

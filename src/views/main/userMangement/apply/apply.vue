@@ -2,14 +2,14 @@
  * @Descripttion:
  * @version:
  * @Author: wenlan
- * @Date: 2022-02-03 10:53:25
+ * @Date: 2022-02-03 10:53:55
  * @LastEditors: wenlan
- * @LastEditTime: 2022-02-03 10:53:29
+ * @LastEditTime: 2022-02-19 21:50:58
 -->
 <script setup lang="ts"></script>
 
 <template>
-  <h1>用户管理</h1>
+  <h2>应用管理</h2>
 </template>
 
 <style scoped></style>

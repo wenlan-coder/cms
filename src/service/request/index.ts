@@ -4,7 +4,7 @@
  * @Author: wenlan
  * @Date: 2022-01-16 16:52:38
  * @LastEditors: wenlan
- * @LastEditTime: 2022-01-23 13:13:50
+ * @LastEditTime: 2022-02-16 21:47:22
  */
 import axios from 'axios'
 import type { AxiosInstance } from 'axios'
@@ -105,19 +105,19 @@ class WDRequest {
   }
 
   //GET
-  get<T>(config: WDAxiosRequestConfig<T>): Promise<T> {
+  get<T = any>(config: WDAxiosRequestConfig<T>): Promise<T> {
     return this.request<T>({ ...config, method: 'GET' })
   }
   //PUT
-  put<T>(config: WDAxiosRequestConfig<T>): Promise<T> {
+  put<T = any>(config: WDAxiosRequestConfig<T>): Promise<T> {
     return this.request<T>({ ...config, method: 'PUT' })
   }
   //POST
-  post<T>(config: WDAxiosRequestConfig<T>): Promise<T> {
+  post<T = any>(config: WDAxiosRequestConfig<T>): Promise<T> {
     return this.request<T>({ ...config, method: 'POST' })
   }
   //DEL
-  delete<T>(config: WDAxiosRequestConfig<T>): Promise<T> {
+  delete<T = any>(config: WDAxiosRequestConfig<T>): Promise<T> {
     return this.request<T>({ ...config, method: 'DELETE' })
   }
 }

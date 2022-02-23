@@ -4,7 +4,7 @@
  * @Author: wenlan
  * @Date: 2022-01-23 17:12:21
  * @LastEditors: wenlan
- * @LastEditTime: 2022-02-07 14:35:33
+ * @LastEditTime: 2022-02-14 22:45:51
 -->
 <script setup lang="ts">
 import { ref } from 'vue'
@@ -32,7 +32,7 @@ const handleCollapse = (isCollapse: boolean) => {
         </el-header>
         <el-main class="page-content">
           <router-view v-slot="{ Component }">
-            <transition name="why" appear>
+            <transition name="fade-transform">
               <div :key="(route.name as string)">
                 <component :is="Component"></component>
               </div>
@@ -45,19 +45,6 @@ const handleCollapse = (isCollapse: boolean) => {
 </template>
 
 <style scoped lang="less">
-.why-active {
-  color: red;
-}
-
-.why-enter-from,
-.why-leave-to {
-  opacity: 0;
-}
-
-.why-enter-active,
-.why-leave-active {
-  transition: opacity 1s ease;
-}
 .main {
   position: fixed;
   top: 0;
@@ -76,7 +63,9 @@ const handleCollapse = (isCollapse: boolean) => {
     height: 50px;
   }
   .page-content {
+    width: 100%;
     height: calc(100vh - 50px);
+    overflow-x: hidden;
   }
 }
 </style>

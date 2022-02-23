@@ -4,10 +4,10 @@
  * @Author: wenlan
  * @Date: 2022-01-27 22:29:28
  * @LastEditors: wenlan
- * @LastEditTime: 2022-02-06 21:01:12
+ * @LastEditTime: 2022-02-19 22:07:35
 -->
 <script setup lang="ts">
-import { PermissionModule } from '@/store/premission/index'
+import { PermissionModule } from '@/store/main/premission/index'
 import { computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 const router = useRouter()
@@ -16,7 +16,7 @@ const route = useRoute()
 const routes = computed(() => {
   return PermissionModule.routes
 })
-console.log('route', route)
+// console.log('route', route)
 //computed
 const activeMenu = computed(() => {
   const { meta, name } = route
@@ -24,13 +24,12 @@ const activeMenu = computed(() => {
   if (meta.activeMenu) {
     return meta.activeMenu as string
   }
-  console.log(name)
+  // console.log(name)
   return name as string
 })
 //methods
 const changeRoute = (name: any) => {
-  console.log(name)
-
+  // console.log(name)
   router.push({ name: name })
 }
 //
@@ -43,7 +42,7 @@ const props = withDefaults(defineProps<Props>(), {
 const isCollapse = computed(() => {
   return props.data
 })
-console.log(props.data)
+// console.log(props.data)
 </script>
 
 <template>

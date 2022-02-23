@@ -1,1 +1,6 @@
 @import 'base.less';
+@import 'transition.less';
+//解决element table设置flex el-image样式被覆盖
+.el-table__fixed-body-wrapper {
+  z-index: auto !important;
+}

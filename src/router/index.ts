@@ -4,7 +4,7 @@
  * @Author: wenlan
  * @Date: 2022-01-15 16:55:13
  * @LastEditors: wenlan
- * @LastEditTime: 2022-02-07 16:04:51
+ * @LastEditTime: 2022-02-23 16:22:06
  */
 import { createRouter, createWebHashHistory } from 'vue-router'
 import type { RouteRecordRaw } from 'vue-router'
@@ -68,13 +68,14 @@ export const asyncRoutes: RouteRecordRaw[] = [
       {
         path: 'edit',
         name: 'edit',
-        component: () => import('@/views/main/borrowMangemnet/edit.vue'),
+        component: () => import('@/views/main/borrowMangemnet/edit/edit.vue'),
         meta: { title: '图书归还' }
       },
       {
         path: 'history',
         name: 'history',
-        component: () => import('@/views/main/borrowMangemnet/history.vue'),
+        component: () =>
+          import('@/views/main/borrowMangemnet/history/history.vue'),
         meta: { title: '借阅记录' }
       }
     ]
@@ -89,13 +90,13 @@ export const asyncRoutes: RouteRecordRaw[] = [
       {
         path: 'user',
         name: 'user',
-        component: () => import('@/views/main/userMangement/user.vue'),
+        component: () => import('@/views/main/userMangement/user/src/user.vue'),
         meta: { title: '角色管理' }
       },
       {
         path: 'apply',
         name: 'apply',
-        component: () => import('@/views/main/userMangement/apply.vue'),
+        component: () => import('@/views/main/userMangement/apply/apply.vue'),
         meta: { title: '应用管理' }
       }
     ]
@@ -110,7 +111,8 @@ export const asyncRoutes: RouteRecordRaw[] = [
       {
         path: 'message',
         name: 'message',
-        component: () => import('@/views/main/booksMangement/message.vue'),
+        component: () =>
+          import('@/views/main/booksMangement/message/src/message.vue'),
         meta: { title: '图书信息管理' }
       },
       {
@@ -132,8 +134,9 @@ export const asyncRoutes: RouteRecordRaw[] = [
       {
         path: 'system',
         name: 'system',
-        component: () => import('@/views/main/systemMangement/system.vue'),
-        meta: { title: '数据管理' }
+        component: () =>
+          import('@/views/main/systemMangement/system/src/system.vue'),
+        meta: { title: '权限管理' }
       },
       {
         path: 'lateMangement',

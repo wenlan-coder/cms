@@ -4,7 +4,7 @@
  * @Author: wenlan
  * @Date: 2022-02-05 15:42:44
  * @LastEditors: wenlan
- * @LastEditTime: 2022-02-05 20:47:01
+ * @LastEditTime: 2022-02-14 10:54:34
  */
 
 import type { IloginState } from './type'
@@ -17,13 +17,17 @@ import {
 } from 'vuex-module-decorators'
 import store from '@/store'
 import { resetRouter } from '@/router'
-import { accountLoginRequest, accountGetUserInfo } from '@/service/login/login'
+import {
+  accountLoginRequest,
+  accountGetUserInfo,
+  accounByCodeAction
+} from '@/service/login/login'
 // import { SET_ROLES, SET_TOKEN, SET_USERINFO } from '../mutation-type'
 import { IAccount } from '@/service/login/type'
 import Cache from '@/utils/cache'
 import { logout } from '@/service/login/login'
 
-@Module({ dynamic: true, store, name: 'login' })
+@Module({ dynamic: true, store, name: 'login', namespaced: true })
 class Login extends VuexModule implements IloginState {
   public token = ''
   public userInfo = {}
@@ -42,7 +46,7 @@ class Login extends VuexModule implements IloginState {
   private SET_USERINFO(userinfo: object) {
     this.userInfo = userinfo
   }
-  //登录请求
+  //密码登录请求
   @Action
   public accountLoginAction(payload: IAccount) {
     //登录请求token
@@ -63,6 +67,14 @@ class Login extends VuexModule implements IloginState {
         })
     })
   }
+  //短信验证登录请求
+  @Action async messageLoginAction(payload: any) {
+    console.log(payload)
+
+    const data = accounByCodeAction(payload)
+    console.log(data)
+  }
+
   //请求用户信息
   @Action
   public accountGetInfoAction() {

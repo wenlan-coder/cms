@@ -4,7 +4,7 @@
  * @Author: wenlan
  * @Date: 2022-01-20 16:14:07
  * @LastEditors: wenlan
- * @LastEditTime: 2022-01-20 22:29:34
+ * @LastEditTime: 2022-02-14 13:12:41
 -->
 <!--
  * @Descripttion:
@@ -17,34 +17,57 @@
 <script setup lang="ts">
 import { ref, reactive } from 'vue'
 import type { ElForm } from 'element-plus'
+import { accountMeesageCode } from '@/service/login/login'
+import { codeRules } from '../config/login-code'
+import type { Iphone, IcodeReturn } from '../types/index'
+import { LoginModule } from '@/store/login/index'
 const ruleFormRef = ref<InstanceType<typeof ElForm>>()
-const phone = reactive({
+const phone = reactive<Iphone>({
   number: '',
   code: ''
 })
-
-const formRules = reactive({
-  number: [
-    { required: true, message: '请输入手机号', trigger: 'blur' },
-    // 手机号/电话号验证 正则
-    {
-      pattern: /^((0\d{2,3}-\d{7,8})|(1[3584]\d{9}))$/,
-      message: '请输入合法手机号/电话号',
-      trigger: 'blur'
+const codeReset = reactive<IcodeReturn>({
+  message: '发送验证码',
+  disabled: false
+})
+//验证码倒计时
+let countDown = 60
+const handleCodeReset = (obj: IcodeReturn) => {
+  if (countDown === 0) {
+    ;(obj.message = '发送验证码'), (obj.disabled = false)
+    countDown = 60
+    return
+  } else {
+    obj.disabled = true
+    obj.message = `${countDown}s后重新发送`
+    countDown--
+  }
+  setTimeout(() => {
+    handleCodeReset(obj)
+  }, 1000) //每1000毫秒执行一次
+}
+//获取验证码
+const formRules = reactive(codeRules)
+const getMessageCode = async (phone: string) => {
+  ruleFormRef.value?.validateField('number', async (err) => {
+    if (!err) {
+      //如果验证通过
+      const data = await accountMeesageCode({ phone })
+      console.log(data)
+      handleCodeReset(codeReset)
     }
-  ],
-  code: [
-    {
-      required: true,
-      message: '请输入验证码',
-      trigger: 'blur'
-    },
-    {
-      pattern: /^[0-9]{6,}$/,
-      message: '请输入正确位数验证码',
-      trigger: 'blur'
+  })
+}
+const messageValidata = async () => {
+  ruleFormRef.value?.validate(async (valid) => {
+    if (valid) {
+      const data = await LoginModule.messageLoginAction(phone)
+      console.log(data)
     }
-  ]
+  })
+}
+defineExpose({
+  messageValidata
 })
 </script>
 
@@ -69,7 +92,12 @@ const formRules = reactive({
           autocomplete="off"
           maxlength="6"
         ></el-input>
-        <el-button type="primary">获取验证码</el-button>
+        <el-button
+          type="primary"
+          :disabled="codeReset.disabled"
+          @click="getMessageCode(phone.number)"
+          >{{ codeReset.message }}</el-button
+        >
       </div>
     </el-form-item>
   </el-form>

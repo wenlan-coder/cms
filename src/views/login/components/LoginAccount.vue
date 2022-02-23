@@ -4,7 +4,7 @@
  * @Author: wenlan
  * @Date: 2022-01-20 16:14:23
  * @LastEditors: wenlan
- * @LastEditTime: 2022-02-05 16:54:47
+ * @LastEditTime: 2022-02-19 17:42:53
 -->
 <script setup lang="ts">
 import { ref, reactive, watch } from 'vue'
@@ -20,6 +20,11 @@ const router = useRouter()
 const ruleFormRef = ref<InstanceType<typeof ElForm>>()
 let isLoading = ref(false)
 let redirectPath = ref<any>()
+//types
+interface Iprops {
+  loginsubmit: any
+}
+
 //watch
 watch(
   () => route.query,
@@ -57,15 +62,21 @@ const accountValidate = (isKeepPassword: boolean) => {
     }
   })
 }
+const loginSubmit = () => {
+  props.loginsubmit()
+}
 //data
 const account = reactive({
   username: Cache.getCache('username') ?? '',
   password: Cache.getCache('password') ?? ''
 })
-
 const formRules = reactive(accountRules)
 
-//expose
+//props
+const props = withDefaults(defineProps<Iprops>(), {
+  loginsubmit: () => null
+})
+
 //expose
 defineExpose({
   account,
@@ -94,6 +105,7 @@ defineExpose({
         type="password"
         show-password
         autocomplete="off"
+        @keyup.enter="loginSubmit"
       ></el-input>
     </el-form-item>
   </el-form>

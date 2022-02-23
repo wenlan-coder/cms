@@ -4,7 +4,7 @@
  * @Author: wenlan
  * @Date: 2022-01-29 12:49:39
  * @LastEditors: wenlan
- * @LastEditTime: 2022-02-05 15:45:02
+ * @LastEditTime: 2022-02-16 20:49:07
  */
 import {
   VuexModule,
@@ -16,7 +16,7 @@ import {
 import store from '@/store'
 import { asyncRoutes, constantRoutes } from '@/router'
 import type { RouteRecordRaw } from 'vue-router'
-import { IPermissionState } from './type'
+import type { IPermissionState } from './type'
 //验证角色
 const hasPermission = (roles: string[], route: RouteRecordRaw) => {
   if (route.meta && route.meta.roles) {
@@ -45,7 +45,7 @@ export const filterAsyncRoutes = (
 //dynamic动态创建动态模块即new Vuex.Store({})里面不用注册的.空着就行
 //store当前模块注册到store上，也可以写在getModule（premissionModule,STORE）
 //namespce命名空间
-@Module({ dynamic: true, store, name: 'permission' })
+@Module({ dynamic: true, store, name: 'permission', namespaced: true })
 class Permission extends VuexModule implements IPermissionState {
   public routes: RouteRecordRaw[] = [] //声明为public可访问
   public dynamicRoutes: RouteRecordRaw[] = []

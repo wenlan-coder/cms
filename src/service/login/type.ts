@@ -4,7 +4,7 @@
  * @Author: wenlan
  * @Date: 2022-01-22 17:05:21
  * @LastEditors: wenlan
- * @LastEditTime: 2022-02-05 17:35:21
+ * @LastEditTime: 2022-02-14 10:16:48
  */
 //请求用户类型
 export interface IAccount {
