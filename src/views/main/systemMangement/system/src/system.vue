@@ -4,7 +4,7 @@
  * @Author: wenlan
  * @Date: 2022-02-03 10:51:53
  * @LastEditors: wenlan
- * @LastEditTime: 2022-02-23 19:03:11
+ * @LastEditTime: 2022-02-24 12:42:00
 -->
 <script setup lang="ts">
 // import pageSearch from '@/components/search-page/index'
@@ -20,7 +20,7 @@
 <template>
   <h2>
     <div class="menu">
-      大大撒
+      角色管理
       <!-- <page-search></page-search>
       <contenet-table></contenet-table>
       <page-modal></page-modal> -->
